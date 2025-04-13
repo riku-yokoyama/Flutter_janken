@@ -30,6 +30,31 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+  // じゃんけん：ロボットの手を表示します
+  void showRobotResult() {
+    // ダイアログで表示
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text(
+              "ロボットくん",
+              style: TextStyle(fontSize: 20),
+            ),
+            // chooseHandで指定する画像のパスをランダムに決定する
+            content: Image.asset(chooseHand()),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text("閉じる"))
+            ],
+          );
+        });
+  }
+
   // ロボットの出す手を決定する
   String chooseHand() {
     List<String> hands = ["グー", "チョキ", "パー"];
@@ -44,30 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
     } else {
       result = "assets/janken_pa.png";
     }
-
     return result;
-  }
-
-  // じゃんけん：ロボットの手を表示します
-  void showRobotResult() {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: const Text(
-              "ロボットくん",
-              style: TextStyle(fontSize: 20),
-            ),
-            content: Image.asset(chooseHand()),
-            actions: [
-              TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text("閉じる"))
-            ],
-          );
-        });
   }
 
   @override
